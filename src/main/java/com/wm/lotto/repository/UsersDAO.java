@@ -8,7 +8,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
@@ -48,22 +47,22 @@ public class UsersDAO implements IUsersDAO {
 	}
 
 	@Override
-	public boolean checkUserLogin(Users user) throws Exception {
-		boolean hasUser = false;
-		String sql = "SELECT * FROM USERS WHERE U_USERNAME = ? AND U_PASSWORD = ?";
-		RowMapper<Users> rowMapper = new UsersRowMapper();
-		List<Users> result = new ArrayList<Users>();
+	public String checkUserLogin(Users user) throws Exception {
+		String userId = null;
+		String sql = "SELECT * FROM "+ANALYZERLOTTERY+"USERS WHERE U_USERNAME = ? AND U_PASSWORD = ?";
+		Users resultQuery = new Users();
 		try {
-			result = jdbcTemplate.query(sql, rowMapper);
+			RowMapper<Users> rowMapper = new UsersRowMapper();
+			resultQuery = (Users) jdbcTemplate.queryForObject(sql, rowMapper, user.getUUsername(), user.getUPassword());
 			log.info("(SUCCESS) Method checkUserLogin access database success.");
 		} catch (Exception e) {
 			log.error("(ERROR) Method checkUserLogin RowMapper or JDBCTemplate error. : "+e);
 			throw new Exception();
 		}
-		if (!result.isEmpty()) {
-			hasUser = true;
+		if (resultQuery != null) {
+			userId = resultQuery.getUId();
 		}
-		return hasUser;
+		return userId;
 	}
 
 }

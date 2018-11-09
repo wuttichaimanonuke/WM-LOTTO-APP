@@ -29,6 +29,11 @@ public class LoginController {
 		LoginUser loginUser = seriesValue.getDataValue().get(0);
 		log.info("username = {} ,password = {}",loginUser.getUsername(),loginUser.getPassword());
 		log.info("loginUser = {}",loginUser.toString());
+		try {
+			log.info(loginService.login(loginUser));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return null;
 	}
 	
