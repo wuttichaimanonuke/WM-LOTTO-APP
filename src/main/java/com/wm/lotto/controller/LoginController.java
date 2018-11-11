@@ -3,6 +3,8 @@ package com.wm.lotto.controller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.wm.lotto.entity.LoginUser;
 import com.wm.lotto.entity.RequestDataEntity;
+import com.wm.lotto.entity.TokenLogin;
 import com.wm.lotto.service.ILoginService;
 
 @RestController
@@ -29,12 +32,15 @@ public class LoginController {
 		LoginUser loginUser = seriesValue.getDataValue().get(0);
 		log.info("username = {} ,password = {}",loginUser.getUsername(),loginUser.getPassword());
 		log.info("loginUser = {}",loginUser.toString());
+		
+		TokenLogin result = new TokenLogin();
 		try {
-			log.info(loginService.login(loginUser));
+			result = loginService.login(loginUser);
+			log.info("Service return token = "+result.getTlToken());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return null;
+		return new ResponseEntity<TokenLogin>(result, HttpStatus.OK);
 	}
 	
 }

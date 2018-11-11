@@ -1,7 +1,8 @@
 package com.wm.lotto.service;
 
 import com.wm.lotto.entity.LoginUser;
+import com.wm.lotto.entity.TokenLogin;
 
 public interface ILoginService {
-	String login(LoginUser loginUser);
+	TokenLogin login(LoginUser loginUser);
 }

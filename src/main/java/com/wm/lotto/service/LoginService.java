@@ -25,9 +25,9 @@ public class LoginService implements ILoginService {
 	private ITokenLoginDAO tokenLoginDAO;
 
 	@Override
-	public String login(LoginUser loginUser) {
+	public TokenLogin login(LoginUser loginUser) {
 		log.info("(SERVICE) Service login begin.");
-		String resultUuidToken = null;
+		TokenLogin resultUuidToken = new TokenLogin();
 		String userId = null;
 		Users user = new Users();
 		log.info("User ("+loginUser.getUsername()+") is request login.");
@@ -69,7 +69,7 @@ public class LoginService implements ILoginService {
 				try {
 					tokenLoginDAO.insertTokenLogin(tokenLogin);
 					log.info("User ("+userId+") login success.");
-					resultUuidToken = tokenLogin.getTlToken();
+					resultUuidToken.setTlToken(tokenLogin.getTlToken());
 					log.info("Token = "+tokenLogin.getTlToken());
 				} catch (Exception e) {
 					log.info("User ("+userId+") login fail. : "+e.getMessage());
