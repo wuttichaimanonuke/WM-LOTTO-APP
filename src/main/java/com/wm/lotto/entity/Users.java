@@ -21,7 +21,7 @@ public class Users {
 	private Date createDatetime;
 	private String createBy;
 	
-	@JsonIgnore
+//	@JsonIgnore
 
 	public Users() {
 		super();
@@ -41,89 +41,86 @@ public class Users {
 		this.createBy = createBy;
 	}
 
-	public String getUId() {
+	public String getuId() {
 		return uId;
 	}
 
-	public String getUUsername() {
+	public void setuId(String uId) {
+		this.uId = uId;
+	}
+
+	public String getuUsername() {
 		return uUsername;
 	}
 
-	public String getUPassword() {
+	public void setuUsername(String uUsername) {
+		this.uUsername = uUsername;
+	}
+
+	public String getuPassword() {
 		return uPassword;
 	}
 
-	public String getUDisplayName() {
+	public void setuPassword(String uPassword) {
+		this.uPassword = uPassword;
+	}
+
+	public String getuDisplayName() {
 		return uDisplayName;
 	}
 
-	public String getUDiscription() {
+	public void setuDisplayName(String uDisplayName) {
+		this.uDisplayName = uDisplayName;
+	}
+
+	public String getuDiscription() {
 		return uDiscription;
 	}
 
-	public String getUActive() {
+	public void setuDiscription(String uDiscription) {
+		this.uDiscription = uDiscription;
+	}
+
+	public String getuActive() {
 		return uActive;
+	}
+
+	public void setuActive(String uActive) {
+		this.uActive = uActive;
 	}
 
 	public Date getModifyDate() {
 		return modifyDate;
 	}
 
-	public String getModifyBy() {
-		return modifyBy;
-	}
-
-	public Date getCreateDatetime() {
-		return createDatetime;
-	}
-
-	public String getCreateBy() {
-		return createBy;
-	}
-
-	public void setUId(String uId) {
-		this.uId = uId;
-	}
-
-	public void setUUsername(String uUsername) {
-		this.uUsername = uUsername;
-	}
-
-	public void setUPassword(String uPassword) {
-		this.uPassword = uPassword;
-	}
-
-	public void setUDisplayName(String uDisplayName) {
-		this.uDisplayName = uDisplayName;
-	}
-
-	public void setUDiscription(String uDiscription) {
-		this.uDiscription = uDiscription;
-	}
-
-	public void setUActive(String uActive) {
-		this.uActive = uActive;
-	}
-
 	public void setModifyDate(Date modifyDate) {
 		this.modifyDate = modifyDate;
+	}
+
+	public String getModifyBy() {
+		return modifyBy;
 	}
 
 	public void setModifyBy(String modifyBy) {
 		this.modifyBy = modifyBy;
 	}
 
+	public Date getCreateDatetime() {
+		return createDatetime;
+	}
+
 	public void setCreateDatetime(Date createDatetime) {
 		this.createDatetime = createDatetime;
+	}
+
+	public String getCreateBy() {
+		return createBy;
 	}
 
 	public void setCreateBy(String createBy) {
 		this.createBy = createBy;
 	}
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#hashCode()
-	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -141,9 +138,6 @@ public class Users {
 		return result;
 	}
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -208,7 +202,10 @@ public class Users {
 
 	@Override
 	public String toString() {
-		return "Users [uId = " + uId + ", uUsername = " + uUsername + ", uPassword = " + uPassword + ", uDisplayName = " + uDisplayName + ", uDiscription = " + uDiscription + ", uActive = " + uActive + ", modifyDate = " + modifyDate + ", modifyBy = " + modifyBy + ", createDatetime = " + createDatetime + ", createBy = " + createBy + "]";
+		return "Users [uId=" + uId + ", uUsername=" + uUsername + ", uPassword=" + uPassword + ", uDisplayName="
+				+ uDisplayName + ", uDiscription=" + uDiscription + ", uActive=" + uActive + ", modifyDate="
+				+ modifyDate + ", modifyBy=" + modifyBy + ", createDatetime=" + createDatetime + ", createBy="
+				+ createBy + "]";
 	}
 
 }
