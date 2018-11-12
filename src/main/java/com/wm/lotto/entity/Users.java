@@ -21,10 +21,15 @@ public class Users {
 	private Date createDatetime;
 	private String createBy;
 	
-	@JsonIgnore
+//	@JsonIgnore
 
 	public Users() {
 		super();
+	}
+	
+	public Users(String uId) {
+		super();
+		this.uId = uId;
 	}
 
 	public Users(String uId, String uUsername, String uPassword, String uDisplayName, String uDiscription, String uActive, Date modifyDate, String modifyBy, Date createDatetime, String createBy) {

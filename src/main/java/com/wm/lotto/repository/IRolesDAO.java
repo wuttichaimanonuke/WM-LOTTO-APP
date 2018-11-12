@@ -8,5 +8,5 @@ public interface IRolesDAO {
 
 	List<Roles> getAllRoles() throws Exception;
 
-	List<Roles> getAllRolesActiveByUid(String uId);
+	List<Roles> getAllRolesIsActiveByUid(String uId);
 }

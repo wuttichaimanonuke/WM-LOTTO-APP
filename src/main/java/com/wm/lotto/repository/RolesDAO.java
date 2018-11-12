@@ -3,7 +3,6 @@ package com.wm.lotto.repository;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.http.conn.EofSensorWatcher;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,7 +47,7 @@ public class RolesDAO implements IRolesDAO {
 	}
 
 	@Override
-	public List<Roles> getAllRolesActiveByUid(String uId) {
+	public List<Roles> getAllRolesIsActiveByUid(String uId) {
 		StringBuilder sql = new StringBuilder();
 		sql.append(" SELECT");
 		sql.append(" r.*");
