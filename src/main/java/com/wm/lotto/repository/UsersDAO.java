@@ -53,14 +53,14 @@ public class UsersDAO implements IUsersDAO {
 		Users resultQuery = new Users();
 		try {
 			RowMapper<Users> rowMapper = new UsersRowMapper();
-			resultQuery = (Users) jdbcTemplate.queryForObject(sql, rowMapper, user.getUUsername(), user.getUPassword());
+			resultQuery = (Users) jdbcTemplate.queryForObject(sql, rowMapper, user.getuUsername(), user.getuPassword());
 			log.info("(SUCCESS) Method checkUserLogin access database success.");
 		} catch (Exception e) {
 			log.error("(ERROR) Method checkUserLogin RowMapper or JDBCTemplate error. : "+e);
 			throw new Exception();
 		}
 		if (resultQuery != null) {
-			userId = resultQuery.getUId();
+			userId = resultQuery.getuId();
 		}
 		return userId;
 	}

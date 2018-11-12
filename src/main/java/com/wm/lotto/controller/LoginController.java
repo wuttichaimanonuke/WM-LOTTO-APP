@@ -28,6 +28,7 @@ public class LoginController {
 	public ResponseEntity<?> loginApp(@RequestBody RequestDataEntity<LoginUser> seriesValue) {
 		log.info("(POST) mapping to login : Begin.");
 		log.info("@RequestBody : token = {}, dataValue = {}", seriesValue.getToken(),seriesValue.getDataValue());
+		log.info("seriesValue = {}",seriesValue.toString());
 		LoginUser loginUser = seriesValue.getDataValue().get(0);
 		log.info("username = {} ,password = {}",loginUser.getUsername(),loginUser.getPassword());
 		log.info("loginUser = {}",loginUser.toString());

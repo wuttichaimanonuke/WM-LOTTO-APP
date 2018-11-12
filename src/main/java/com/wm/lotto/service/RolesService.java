@@ -24,15 +24,15 @@ public class RolesService implements IRolesService {
 	public List<Roles> getAllRolesIsActiveByUid(Users user) {
 		log.info("(SERVICE) Service getAllRolesIsActiveByUid begin.");
 		List<Roles> resultRoles = new ArrayList<Roles>();
-		log.info("User Id ( {} ) get our roles is active.",user.getUId());
+		log.info("User Id ( {} ) get our roles is active.",user.getuId());
 		if (!user.equals(null)) {
-			if ( (!user.getUId().isEmpty()) && (!user.getUId().equals(null)) ) {
+			if ( (!user.getuId().isEmpty()) && (!user.getuId().equals(null)) ) {
 				try {
-					resultRoles = rolesDAO.getAllRolesIsActiveByUid(user.getUId());
-					log.info("User ( {} ) has roles.",user.getUId());
+					resultRoles = rolesDAO.getAllRolesIsActiveByUid(user.getuId());
+					log.info("User ( {} ) has roles.",user.getuId());
 				} catch (Exception e) {
-					log.info("User ( {} ) can't get roles.",user.getUId());
-					log.info("ERROR user ( {} ) RolesDAO : getAllRolesIsActiveByUid : {} ",user.getUId() ,e.getMessage());
+					log.info("User ( {} ) can't get roles.",user.getuId());
+					log.info("ERROR user ( {} ) RolesDAO : getAllRolesIsActiveByUid : {} ",user.getuId() ,e.getMessage());
 				}
 			}
 		}

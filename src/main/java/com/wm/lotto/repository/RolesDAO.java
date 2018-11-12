@@ -57,7 +57,7 @@ public class RolesDAO implements IRolesDAO {
 		RowMapper<Roles> rowMapper = new RolesRowMapper();
 		List<Roles> result = new ArrayList<Roles>();
 		try {
-			result = jdbcTemplate.query(sql.toString(), rowMapper);
+			result = jdbcTemplate.query(sql.toString(), rowMapper, uId);
 			log.info("(SUCCESS) Get all roles is active of user("+uId+") from database success.");
 		} catch (Exception e) {
 			log.error("(ERROR) Can't get role ia active of user("+uId+") from database. RowMapper or JDBCTemplate error. : "+e);

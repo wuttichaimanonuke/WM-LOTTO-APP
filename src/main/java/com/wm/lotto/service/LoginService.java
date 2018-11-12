@@ -32,14 +32,14 @@ public class LoginService implements ILoginService {
 		Users user = new Users();
 		log.info("User ("+loginUser.getUsername()+") is request login.");
 		if (loginUser != null) {
-			user.setUUsername(loginUser.getUsername());
-			user.setUPassword(loginUser.getPassword());
+			user.setuUsername(loginUser.getUsername());
+			user.setuPassword(loginUser.getPassword());
 			try {
 				userId = usersDAO.checkUserLogin(user);
 				log.info("User ("+userId+") is found.");
 			} catch (Exception e) {
 				log.info("User ("+userId+") is't found.");
-				log.error("ERROR ("+user.getUUsername()+") : UsersDAO : checkUserLogin : "+e.getMessage());
+				log.error("ERROR ("+user.getuUsername()+") : UsersDAO : checkUserLogin : "+e.getMessage());
 			}
 			if (userId != null) {
 //				check has token of user in Table TokenLogin.
