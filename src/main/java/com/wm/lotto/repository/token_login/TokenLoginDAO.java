@@ -87,7 +87,7 @@ public class TokenLoginDAO implements ITokenLoginDAO {
 	@Override
 	public TokenLogin getTokenLoginByToken(String token) {
 		String sql = "SELECT * FROM "+ANALYZERLOTTERY+"TOKENLOGIN WHERE TL_TOKEN = ?";
-		TokenLogin resultQuery = new  TokenLogin();
+		TokenLogin resultQuery = new TokenLogin();
 		try {
 			RowMapper<TokenLogin> rowMapper = new TokenLoginRowMapper();
 			resultQuery = jdbcTemplate.queryForObject(sql, rowMapper, token);

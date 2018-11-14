@@ -1,5 +1,8 @@
 package com.wm.lotto.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,15 +35,16 @@ public class LoginController {
 		LoginUser loginUser = seriesValue.getDataValue().get(0);
 		log.info("username = {} ,password = {}",loginUser.getUsername(),loginUser.getPassword());
 		log.info("loginUser = {}",loginUser.toString());
-		
-		TokenLogin result = new TokenLogin();
+		Map<String, Object> result = new HashMap<String, Object>();
+		TokenLogin tokenLogin = new TokenLogin();
 		try {
-			result = loginService.login(loginUser);
-			log.info("Service return token = "+result.getTlToken());
+			tokenLogin = loginService.login(loginUser);
+			result.put("token", tokenLogin.getTlToken());
+			log.info("Service return token = "+tokenLogin.getTlToken());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return new ResponseEntity<TokenLogin>(result, HttpStatus.OK);
+		return new ResponseEntity<Map<String,Object>>(result, HttpStatus.OK);
 	}
 	
 }

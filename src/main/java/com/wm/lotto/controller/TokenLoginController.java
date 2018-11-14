@@ -34,6 +34,7 @@ public class TokenLoginController {
 			result.put("result", tokenService.checkThisToken(seriesValue.getToken())); 
 			log.info("Service return result[{}].",result);
 		} catch (Exception e) {
+			result.put("result", false);
 			log.info("Service chekThisToken is error. : {}",e.getMessage());
 		}
 		return new ResponseEntity<Map<String,Object>>(result, HttpStatus.OK);
