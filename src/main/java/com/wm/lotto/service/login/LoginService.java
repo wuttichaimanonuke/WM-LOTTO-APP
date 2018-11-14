@@ -1,4 +1,4 @@
-package com.wm.lotto.service;
+package com.wm.lotto.service.login;
 
 import java.util.UUID;
 
@@ -7,11 +7,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.wm.lotto.entity.LoginUser;
-import com.wm.lotto.entity.TokenLogin;
-import com.wm.lotto.entity.Users;
-import com.wm.lotto.repository.ITokenLoginDAO;
-import com.wm.lotto.repository.IUsersDAO;
+import com.wm.lotto.entity.general.LoginUser;
+import com.wm.lotto.entity.token_login.TokenLogin;
+import com.wm.lotto.entity.users.Users;
+import com.wm.lotto.repository.token_login.ITokenLoginDAO;
+import com.wm.lotto.repository.users.IUsersDAO;
 
 @Service
 public class LoginService implements ILoginService {
@@ -32,14 +32,14 @@ public class LoginService implements ILoginService {
 		Users user = new Users();
 		log.info("User ("+loginUser.getUsername()+") is request login.");
 		if (loginUser != null) {
-			user.setUUsername(loginUser.getUsername());
-			user.setUPassword(loginUser.getPassword());
+			user.setuUsername(loginUser.getUsername());
+			user.setuPassword(loginUser.getPassword());
 			try {
 				userId = usersDAO.checkUserLogin(user);
 				log.info("User ("+userId+") is found.");
 			} catch (Exception e) {
 				log.info("User ("+userId+") is't found.");
-				log.error("ERROR ("+user.getUUsername()+") : UsersDAO : checkUserLogin : "+e.getMessage());
+				log.error("ERROR ("+user.getuUsername()+") : UsersDAO : checkUserLogin : "+e.getMessage());
 			}
 			if (userId != null) {
 //				check has token of user in Table TokenLogin.

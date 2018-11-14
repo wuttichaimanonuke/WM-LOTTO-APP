@@ -3,7 +3,6 @@ package com.wm.lotto.controller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -11,10 +10,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.wm.lotto.entity.LoginUser;
-import com.wm.lotto.entity.RequestDataEntity;
-import com.wm.lotto.entity.TokenLogin;
-import com.wm.lotto.service.ILoginService;
+import com.wm.lotto.entity.general.LoginUser;
+import com.wm.lotto.entity.general.RequestDataEntity;
+import com.wm.lotto.entity.token_login.TokenLogin;
+import com.wm.lotto.service.login.ILoginService;
 
 @RestController
 @RequestMapping("login_app")
@@ -29,6 +28,7 @@ public class LoginController {
 	public ResponseEntity<?> loginApp(@RequestBody RequestDataEntity<LoginUser> seriesValue) {
 		log.info("(POST) mapping to login : Begin.");
 		log.info("@RequestBody : token = {}, dataValue = {}", seriesValue.getToken(),seriesValue.getDataValue());
+		log.info("seriesValue = {}",seriesValue.toString());
 		LoginUser loginUser = seriesValue.getDataValue().get(0);
 		log.info("username = {} ,password = {}",loginUser.getUsername(),loginUser.getPassword());
 		log.info("loginUser = {}",loginUser.toString());

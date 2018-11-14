@@ -1,19 +1,18 @@
-package com.wm.lotto.entity;
+package com.wm.lotto.entity.token_login;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import org.springframework.jdbc.core.RowMapper;
 
-public class AssignRolesToUserRowMapper implements RowMapper<AssignRolesToUser> {
+public class TokenLoginRowMapper implements RowMapper<TokenLogin> {
 
 	@Override
-	public AssignRolesToUser mapRow(ResultSet row, int rowNum) throws SQLException {
-		AssignRolesToUser entity = new AssignRolesToUser();
-		entity.setAruId(row.getInt("ARU_ID"));
-		entity.setRId(row.getInt("R_ID"));
+	public TokenLogin mapRow(ResultSet row, int rowNum) throws SQLException {
+		TokenLogin entity = new TokenLogin();
+		entity.setTlToken(row.getString("TL_TOKEN"));
 		entity.setUId(row.getString("U_ID"));
-		entity.setAruActive(row.getString("ARU_ACTIVE"));
+		entity.setExpireDate(row.getDate("EXPIRY_DATE"));
 		entity.setModifyDate(row.getDate("MODIFYDATE"));
 		entity.setModifyBy(row.getString("MODIFYBY"));
 		entity.setCreateDatetime(row.getDate("CREATEDATETIME"));

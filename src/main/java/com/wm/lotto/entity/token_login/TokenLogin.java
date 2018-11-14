@@ -1,4 +1,4 @@
-package com.wm.lotto.entity;
+package com.wm.lotto.entity.token_login;
 
 import java.util.Date;
 
@@ -8,49 +8,43 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonIgnoreProperties(ignoreUnknown = false)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class AssignRolesToUser {
+public class TokenLogin {
 
-	private Integer aruId;
-	private Integer rId;
+	private String tlToken;
 	private String uId;
-	private String aruActive;
+	private Date expireDate;
 	private Date modifyDate;
 	private String modifyBy;
 	private Date createDatetime;
 	private String createBy;
 
-	@JsonIgnore
+//	@JsonIgnore
 
-	public AssignRolesToUser() {
+	public TokenLogin() {
 		super();
 	}
 
-	public AssignRolesToUser(Integer aruId, Integer rId, String uId, String aruActive, Date modifyDate, String modifyBy, Date createDatetime, String createBy) {
+	public TokenLogin(String tlToken, String uId, Date expireDate, Date modifyDate, String modifyBy, Date createDatetime, String createBy) {
 		super();
-		this.aruId = aruId;
-		this.rId = rId;
+		this.tlToken = tlToken;
 		this.uId = uId;
-		this.aruActive = aruActive;
+		this.expireDate = expireDate;
 		this.modifyDate = modifyDate;
 		this.modifyBy = modifyBy;
 		this.createDatetime = createDatetime;
 		this.createBy = createBy;
 	}
 
-	public Integer getAruId() {
-		return aruId;
-	}
-
-	public Integer getRId() {
-		return rId;
+	public String getTlToken() {
+		return tlToken;
 	}
 
 	public String getUId() {
 		return uId;
 	}
 
-	public String getAruActive() {
-		return aruActive;
+	public Date getExpireDate() {
+		return expireDate;
 	}
 
 	public Date getModifyDate() {
@@ -69,20 +63,16 @@ public class AssignRolesToUser {
 		return createBy;
 	}
 
-	public void setAruId(Integer aruId) {
-		this.aruId = aruId;
-	}
-
-	public void setRId(Integer rId) {
-		this.rId = rId;
+	public void setTlToken(String tlToken) {
+		this.tlToken = tlToken;
 	}
 
 	public void setUId(String uId) {
 		this.uId = uId;
 	}
 
-	public void setAruActive(String aruActive) {
-		this.aruActive = aruActive;
+	public void setExpireDate(Date expireDate) {
+		this.expireDate = expireDate;
 	}
 
 	public void setModifyDate(Date modifyDate) {
@@ -108,13 +98,12 @@ public class AssignRolesToUser {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((aruActive == null) ? 0 : aruActive.hashCode());
-		result = prime * result + ((aruId == null) ? 0 : aruId.hashCode());
 		result = prime * result + ((createBy == null) ? 0 : createBy.hashCode());
 		result = prime * result + ((createDatetime == null) ? 0 : createDatetime.hashCode());
+		result = prime * result + ((expireDate == null) ? 0 : expireDate.hashCode());
 		result = prime * result + ((modifyBy == null) ? 0 : modifyBy.hashCode());
 		result = prime * result + ((modifyDate == null) ? 0 : modifyDate.hashCode());
-		result = prime * result + ((rId == null) ? 0 : rId.hashCode());
+		result = prime * result + ((tlToken == null) ? 0 : tlToken.hashCode());
 		result = prime * result + ((uId == null) ? 0 : uId.hashCode());
 		return result;
 	}
@@ -130,17 +119,7 @@ public class AssignRolesToUser {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		AssignRolesToUser other = (AssignRolesToUser) obj;
-		if (aruActive == null) {
-			if (other.aruActive != null)
-				return false;
-		} else if (!aruActive.equals(other.aruActive))
-			return false;
-		if (aruId == null) {
-			if (other.aruId != null)
-				return false;
-		} else if (!aruId.equals(other.aruId))
-			return false;
+		TokenLogin other = (TokenLogin) obj;
 		if (createBy == null) {
 			if (other.createBy != null)
 				return false;
@@ -150,6 +129,11 @@ public class AssignRolesToUser {
 			if (other.createDatetime != null)
 				return false;
 		} else if (!createDatetime.equals(other.createDatetime))
+			return false;
+		if (expireDate == null) {
+			if (other.expireDate != null)
+				return false;
+		} else if (!expireDate.equals(other.expireDate))
 			return false;
 		if (modifyBy == null) {
 			if (other.modifyBy != null)
@@ -161,10 +145,10 @@ public class AssignRolesToUser {
 				return false;
 		} else if (!modifyDate.equals(other.modifyDate))
 			return false;
-		if (rId == null) {
-			if (other.rId != null)
+		if (tlToken == null) {
+			if (other.tlToken != null)
 				return false;
-		} else if (!rId.equals(other.rId))
+		} else if (!tlToken.equals(other.tlToken))
 			return false;
 		if (uId == null) {
 			if (other.uId != null)
@@ -176,7 +160,7 @@ public class AssignRolesToUser {
 
 	@Override
 	public String toString() {
-		return "AssignRolesToUser [aruId = " + aruId + ", rId = " + rId + ", uId = " + uId + ", aruActive = " + aruActive + ", modifyDate = " + modifyDate + ", modifyBy = " + modifyBy + ", createDatetime = " + createDatetime + ", createBy = " + createBy + "]";
+		return "TokenLogin [tlToken = " + tlToken + ", uId = " + uId + ", expireDate = " + expireDate + ", modifyDate = " + modifyDate + ", modifyBy = " + modifyBy + ", createDatetime = " + createDatetime + ", createBy = " + createBy + "]";
 	}
 
 }

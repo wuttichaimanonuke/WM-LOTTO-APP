@@ -1,9 +1,8 @@
-package com.wm.lotto.repository;
+package com.wm.lotto.repository.roles;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.http.conn.EofSensorWatcher;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +14,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.wm.lotto.entity.Roles;
-import com.wm.lotto.entity.RolesRowMapper;
+import com.wm.lotto.entity.roles.Roles;
+import com.wm.lotto.entity.roles.RolesRowMapper;
 
 @Transactional
 @Repository
@@ -48,7 +47,7 @@ public class RolesDAO implements IRolesDAO {
 	}
 
 	@Override
-	public List<Roles> getAllRolesActiveByUid(String uId) {
+	public List<Roles> getAllRolesIsActiveByUid(String uId) {
 		StringBuilder sql = new StringBuilder();
 		sql.append(" SELECT");
 		sql.append(" r.*");
@@ -58,7 +57,7 @@ public class RolesDAO implements IRolesDAO {
 		RowMapper<Roles> rowMapper = new RolesRowMapper();
 		List<Roles> result = new ArrayList<Roles>();
 		try {
-			result = jdbcTemplate.query(sql.toString(), rowMapper);
+			result = jdbcTemplate.query(sql.toString(), rowMapper, uId);
 			log.info("(SUCCESS) Get all roles is active of user("+uId+") from database success.");
 		} catch (Exception e) {
 			log.error("(ERROR) Can't get role ia active of user("+uId+") from database. RowMapper or JDBCTemplate error. : "+e);
