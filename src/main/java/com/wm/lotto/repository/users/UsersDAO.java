@@ -47,22 +47,42 @@ public class UsersDAO implements IUsersDAO {
 	}
 
 	@Override
-	public String checkUserLogin(Users user) throws Exception {
+	public String checkUserLogin(Users user) {
 		String userId = null;
 		String sql = "SELECT * FROM "+ANALYZERLOTTERY+"USERS WHERE U_USERNAME = ? AND U_PASSWORD = ?";
 		Users resultQuery = new Users();
 		try {
 			RowMapper<Users> rowMapper = new UsersRowMapper();
 			resultQuery = (Users) jdbcTemplate.queryForObject(sql, rowMapper, user.getuUsername(), user.getuPassword());
+			log.debug("Get UserId({}) By username({}).",resultQuery.getuId() ,user.getuUsername());
 			log.info("(SUCCESS) Method checkUserLogin access database success.");
 		} catch (Exception e) {
 			log.error("(ERROR) Method checkUserLogin RowMapper or JDBCTemplate error. : "+e);
-			throw new Exception();
 		}
 		if (resultQuery != null) {
 			userId = resultQuery.getuId();
 		}
 		return userId;
+	}
+
+	@Override
+	public Users getUserByToken(String token) {
+		String sql = new String();
+		sql = " SELECT";
+		sql = "		u.*";
+		sql = "	FROM "+ANALYZERLOTTERY+"USERS u";
+		sql = " LEFT JOIN "+ANALYZERLOTTERY+"TOKENLOGIN t on u.U_ID = t.U_ID";
+		sql = " WHERE t.TL_TOKEN = '?'";
+		Users resultQuery = new Users();
+		try {
+			RowMapper<Users> rowMapper = new UsersRowMapper();
+			resultQuery = (Users) jdbcTemplate.queryForObject(sql, rowMapper, token);
+			log.debug("Get User({}) By Token({}).",resultQuery.toString() ,token );
+			log.info("(SUCCESS) Method getUserByToken access database success.");
+		} catch (Exception e) {
+			log.error("(ERROR) Method getUserByToken RowMapper or JDBCTemplate error. : "+e);
+		}
+		return resultQuery;
 	}
 
 }

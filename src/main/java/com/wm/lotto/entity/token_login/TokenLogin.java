@@ -18,7 +18,7 @@ public class TokenLogin {
 	private Date createDatetime;
 	private String createBy;
 
-	@JsonIgnore
+//	@JsonIgnore
 
 	public TokenLogin() {
 		super();

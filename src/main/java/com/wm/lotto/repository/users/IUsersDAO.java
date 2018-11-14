@@ -8,6 +8,9 @@ import com.wm.lotto.entity.users.Users;
 public interface IUsersDAO {
 
 	List<Users> getAllUsers() throws Exception;
-	String checkUserLogin(Users user) throws Exception;
+	
+	String checkUserLogin(Users user);
+	
+	Users getUserByToken(String token);
 
 }

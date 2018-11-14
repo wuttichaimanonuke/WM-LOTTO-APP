@@ -84,4 +84,19 @@ public class TokenLoginDAO implements ITokenLoginDAO {
 		}
 	}
 
+	@Override
+	public TokenLogin getTokenLoginByToken(String token) {
+		String sql = "SELECT * FROM "+ANALYZERLOTTERY+"TOKENLOGIN WHERE TL_TOKEN = ?";
+		TokenLogin resultQuery = new  TokenLogin();
+		try {
+			RowMapper<TokenLogin> rowMapper = new TokenLoginRowMapper();
+			resultQuery = jdbcTemplate.queryForObject(sql, rowMapper, token);
+			log.debug("Token({}) has keep in system.",token);
+			log.info("(SUCCESS) Method getTokenLoginByToken access database success.");
+		} catch (Exception e) {
+			log.error("(ERROR) Method getTokenLoginByToken RowMapper or JDBCTemplate error. : "+e);
+		}
+		return resultQuery;
+	}
+
 }

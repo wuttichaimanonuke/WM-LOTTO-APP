@@ -13,5 +13,7 @@ public interface ITokenLoginDAO {
 	void delectTokenLoginByUserId(String userId);
 
 	void insertTokenLogin(TokenLogin tokenLogin);
+	
+	TokenLogin getTokenLoginByToken(String token);
 
 }
