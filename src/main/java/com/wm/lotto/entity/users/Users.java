@@ -1,4 +1,4 @@
-package com.wm.lotto.entity;
+package com.wm.lotto.entity.users;
 
 import java.util.Date;
 

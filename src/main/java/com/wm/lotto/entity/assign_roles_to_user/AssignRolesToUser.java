@@ -1,4 +1,4 @@
-package com.wm.lotto.entity;
+package com.wm.lotto.entity.assign_roles_to_user;
 
 import java.util.Date;
 
@@ -8,12 +8,12 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonIgnoreProperties(ignoreUnknown = false)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class Roles {
+public class AssignRolesToUser {
 
+	private Integer aruId;
 	private Integer rId;
-	private String rName;
-	private String rDescription;
-	private String rActive;
+	private String uId;
+	private String aruActive;
 	private Date modifyDate;
 	private String modifyBy;
 	private Date createDatetime;
@@ -21,36 +21,36 @@ public class Roles {
 
 	@JsonIgnore
 
-	public Roles() {
+	public AssignRolesToUser() {
 		super();
 	}
 
-	public Roles(Integer rId, String rName, String rDescription, String rActive, Date modifyDate, String modifyBy, Date createDatetime, String createBy) {
+	public AssignRolesToUser(Integer aruId, Integer rId, String uId, String aruActive, Date modifyDate, String modifyBy, Date createDatetime, String createBy) {
 		super();
+		this.aruId = aruId;
 		this.rId = rId;
-		this.rName = rName;
-		this.rDescription = rDescription;
-		this.rActive = rActive;
+		this.uId = uId;
+		this.aruActive = aruActive;
 		this.modifyDate = modifyDate;
 		this.modifyBy = modifyBy;
 		this.createDatetime = createDatetime;
 		this.createBy = createBy;
 	}
 
+	public Integer getAruId() {
+		return aruId;
+	}
+
 	public Integer getRId() {
 		return rId;
 	}
 
-	public String getRName() {
-		return rName;
+	public String getUId() {
+		return uId;
 	}
 
-	public String getRDescription() {
-		return rDescription;
-	}
-
-	public String getRActive() {
-		return rActive;
+	public String getAruActive() {
+		return aruActive;
 	}
 
 	public Date getModifyDate() {
@@ -69,20 +69,20 @@ public class Roles {
 		return createBy;
 	}
 
+	public void setAruId(Integer aruId) {
+		this.aruId = aruId;
+	}
+
 	public void setRId(Integer rId) {
 		this.rId = rId;
 	}
 
-	public void setRName(String rName) {
-		this.rName = rName;
+	public void setUId(String uId) {
+		this.uId = uId;
 	}
 
-	public void setRDescription(String rDescription) {
-		this.rDescription = rDescription;
-	}
-
-	public void setRActive(String rActive) {
-		this.rActive = rActive;
+	public void setAruActive(String aruActive) {
+		this.aruActive = aruActive;
 	}
 
 	public void setModifyDate(Date modifyDate) {
@@ -108,14 +108,14 @@ public class Roles {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((aruActive == null) ? 0 : aruActive.hashCode());
+		result = prime * result + ((aruId == null) ? 0 : aruId.hashCode());
 		result = prime * result + ((createBy == null) ? 0 : createBy.hashCode());
 		result = prime * result + ((createDatetime == null) ? 0 : createDatetime.hashCode());
 		result = prime * result + ((modifyBy == null) ? 0 : modifyBy.hashCode());
 		result = prime * result + ((modifyDate == null) ? 0 : modifyDate.hashCode());
-		result = prime * result + ((rActive == null) ? 0 : rActive.hashCode());
-		result = prime * result + ((rDescription == null) ? 0 : rDescription.hashCode());
 		result = prime * result + ((rId == null) ? 0 : rId.hashCode());
-		result = prime * result + ((rName == null) ? 0 : rName.hashCode());
+		result = prime * result + ((uId == null) ? 0 : uId.hashCode());
 		return result;
 	}
 
@@ -130,7 +130,17 @@ public class Roles {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Roles other = (Roles) obj;
+		AssignRolesToUser other = (AssignRolesToUser) obj;
+		if (aruActive == null) {
+			if (other.aruActive != null)
+				return false;
+		} else if (!aruActive.equals(other.aruActive))
+			return false;
+		if (aruId == null) {
+			if (other.aruId != null)
+				return false;
+		} else if (!aruId.equals(other.aruId))
+			return false;
 		if (createBy == null) {
 			if (other.createBy != null)
 				return false;
@@ -151,32 +161,22 @@ public class Roles {
 				return false;
 		} else if (!modifyDate.equals(other.modifyDate))
 			return false;
-		if (rActive == null) {
-			if (other.rActive != null)
-				return false;
-		} else if (!rActive.equals(other.rActive))
-			return false;
-		if (rDescription == null) {
-			if (other.rDescription != null)
-				return false;
-		} else if (!rDescription.equals(other.rDescription))
-			return false;
 		if (rId == null) {
 			if (other.rId != null)
 				return false;
 		} else if (!rId.equals(other.rId))
 			return false;
-		if (rName == null) {
-			if (other.rName != null)
+		if (uId == null) {
+			if (other.uId != null)
 				return false;
-		} else if (!rName.equals(other.rName))
+		} else if (!uId.equals(other.uId))
 			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "Roles [rId = " + rId + ", rName = " + rName + ", rDescription = " + rDescription + ", rActive = " + rActive + ", modifyDate = " + modifyDate + ", modifyBy = " + modifyBy + ", createDatetime = " + createDatetime + ", createBy = " + createBy + "]";
+		return "AssignRolesToUser [aruId = " + aruId + ", rId = " + rId + ", uId = " + uId + ", aruActive = " + aruActive + ", modifyDate = " + modifyDate + ", modifyBy = " + modifyBy + ", createDatetime = " + createDatetime + ", createBy = " + createBy + "]";
 	}
 
 }

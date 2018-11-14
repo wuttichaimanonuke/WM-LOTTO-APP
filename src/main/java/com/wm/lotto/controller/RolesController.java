@@ -13,10 +13,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.wm.lotto.entity.RequestDataEntity;
-import com.wm.lotto.entity.Roles;
-import com.wm.lotto.entity.Users;
-import com.wm.lotto.service.IRolesService;
+import com.wm.lotto.entity.general.RequestDataEntity;
+import com.wm.lotto.entity.roles.Roles;
+import com.wm.lotto.entity.users.Users;
+import com.wm.lotto.service.roles.IRolesService;
 
 @RestController
 @RequestMapping("roles")

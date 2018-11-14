@@ -1,4 +1,4 @@
-package com.wm.lotto.service;
+package com.wm.lotto.service.roles;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,9 +8,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.wm.lotto.entity.Roles;
-import com.wm.lotto.entity.Users;
-import com.wm.lotto.repository.IRolesDAO;
+import com.wm.lotto.entity.roles.Roles;
+import com.wm.lotto.entity.users.Users;
+import com.wm.lotto.repository.roles.IRolesDAO;
 
 @Service
 public class RolesService implements IRolesService {

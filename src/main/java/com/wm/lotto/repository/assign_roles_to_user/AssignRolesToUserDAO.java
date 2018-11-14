@@ -1,4 +1,4 @@
-package com.wm.lotto.repository;
+package com.wm.lotto.repository.assign_roles_to_user;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,8 +14,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.wm.lotto.entity.AssignRolesToUser;
-import com.wm.lotto.entity.AssignRolesToUserRowMapper;
+import com.wm.lotto.entity.assign_roles_to_user.AssignRolesToUser;
+import com.wm.lotto.entity.assign_roles_to_user.AssignRolesToUserRowMapper;
 
 @Transactional
 @Repository

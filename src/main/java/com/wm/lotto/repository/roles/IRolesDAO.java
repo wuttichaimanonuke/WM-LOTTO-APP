@@ -1,8 +1,8 @@
-package com.wm.lotto.repository;
+package com.wm.lotto.repository.roles;
 
 import java.util.List;
 
-import com.wm.lotto.entity.Roles;
+import com.wm.lotto.entity.roles.Roles;
 
 public interface IRolesDAO {
 

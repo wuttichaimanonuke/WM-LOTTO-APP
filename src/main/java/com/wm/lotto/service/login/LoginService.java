@@ -1,4 +1,4 @@
-package com.wm.lotto.service;
+package com.wm.lotto.service.login;
 
 import java.util.UUID;
 
@@ -7,11 +7,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.wm.lotto.entity.LoginUser;
-import com.wm.lotto.entity.TokenLogin;
-import com.wm.lotto.entity.Users;
-import com.wm.lotto.repository.ITokenLoginDAO;
-import com.wm.lotto.repository.IUsersDAO;
+import com.wm.lotto.entity.general.LoginUser;
+import com.wm.lotto.entity.token_login.TokenLogin;
+import com.wm.lotto.entity.users.Users;
+import com.wm.lotto.repository.token_login.ITokenLoginDAO;
+import com.wm.lotto.repository.users.IUsersDAO;
 
 @Service
 public class LoginService implements ILoginService {

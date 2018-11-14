@@ -1,4 +1,4 @@
-package com.wm.lotto.repository;
+package com.wm.lotto.repository.users;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,8 +14,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.wm.lotto.entity.Users;
-import com.wm.lotto.entity.UsersRowMapper;
+import com.wm.lotto.entity.users.Users;
+import com.wm.lotto.entity.users.UsersRowMapper;
 
 @Transactional
 @Repository
