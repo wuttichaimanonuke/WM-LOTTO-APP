@@ -9,4 +9,6 @@ public interface IRolesService {
 
 	List<Roles> getAllRolesIsActiveByUid(Users user);
 
+	List<Roles> getAllRolesIsActiveByUid(String token, Users user);
+
 }

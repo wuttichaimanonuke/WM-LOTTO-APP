@@ -31,12 +31,12 @@ public class RolesController {
 	public ResponseEntity<?> getAllRolesIsActiveByUid(@RequestBody RequestDataEntity<Users> seriesValue) {
 		log.info("(POST) mapping to getAllRolesIsActiveByUserId : Begin.");
 		log.info("@RequestBody : token = {}, dataValue = {}", seriesValue.getToken(),seriesValue.getDataValue());
+		String token = seriesValue.getToken();
 		Users user = seriesValue.getDataValue().get(0);
-		log.info("uId = {}",user.getuId());
-		
+		log.info("token = {}, uId = {}", token, user.getuId());
 		List<Roles> resultRoles = new ArrayList<Roles>();
 		try {
-			resultRoles = rolesService.getAllRolesIsActiveByUid(user);
+			resultRoles = rolesService.getAllRolesIsActiveByUid(token, user);
 			log.info("Service return list of Role = {}",resultRoles);
 		} catch (Exception e) {
 			e.printStackTrace();
