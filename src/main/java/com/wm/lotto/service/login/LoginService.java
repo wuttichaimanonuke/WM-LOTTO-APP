@@ -36,11 +36,11 @@ public class LoginService implements ILoginService {
 			user.setuPassword(loginUser.getPassword());
 			try {
 				userId = usersDAO.checkUserLogin(user);
-				log.info("User ("+userId+") is found.");
 			} catch (Exception e) {
-				log.info("User ("+userId+") is't found.");
+				userId = null;
 				log.error("ERROR ("+user.getuUsername()+") : UsersDAO : checkUserLogin : "+e.getMessage());
 			}
+			log.info("User ({}) is {}.", loginUser.getUsername(), userId);
 			if (userId != null) {
 //				check has token of user in Table TokenLogin.
 //				IF (TRUE) has token of user in table TokenLogin then Delete old token.
