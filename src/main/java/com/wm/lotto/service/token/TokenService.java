@@ -19,13 +19,15 @@ public class TokenService implements ITokenService {
 		if ( !(token.equals(null)) && !(token.trim().equals("")) ) {
 			try {
 				tokenLogin = tokenLoginDAO.getTokenLoginByToken(token);
-				Log.debug("Service checkThisToken found token[{}] has live in system.",token);
-				Log.info("This token[{}] has live in system and result is [{}].", token, tokenLogin.toString());
+				if (!tokenLogin.getTlToken().equals(null)) {
+					Log.debug("Service checkThisToken found token[{}] has live in system.",token);
+					Log.info("This token[{}] has live in system and result is [{}].", token, tokenLogin.toString());
+					return true;
+				} else {
+					Log.info("This token[{}] has't live in system.", token);
+				}
 			} catch (Exception e) {
-				Log.info("Can't check this token[{}].",token);
-			}
-			if (!tokenLogin.getTlToken().equals(null)) {
-				return true;
+				Log.info("Can't check or not found this token[{}].",token);
 			}
 		}
 		return false;

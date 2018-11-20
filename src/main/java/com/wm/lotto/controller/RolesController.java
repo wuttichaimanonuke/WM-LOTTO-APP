@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,16 +28,16 @@ public class RolesController {
 	@Autowired
 	private IRolesService rolesService;
 
-	@RequestMapping(value = "/getAllRolesIsActiveByUserId", method = RequestMethod.POST)
+	@RequestMapping(value = "/getAllRolesIsActiveByUserId", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> getAllRolesIsActiveByUid(@RequestBody RequestDataEntity<Users> seriesValue) {
 		log.info("(POST) mapping to getAllRolesIsActiveByUserId : Begin.");
 		log.info("@RequestBody : token = {}, dataValue = {}", seriesValue.getToken(),seriesValue.getDataValue());
+		String token = seriesValue.getToken();
 		Users user = seriesValue.getDataValue().get(0);
-		log.info("uId = {}",user.getuId());
-		
+		log.info("token = {}, uId = {}", token, user.getuId());
 		List<Roles> resultRoles = new ArrayList<Roles>();
 		try {
-			resultRoles = rolesService.getAllRolesIsActiveByUid(user);
+			resultRoles = rolesService.getAllRolesIsActiveByUid(token, user);
 			log.info("Service return list of Role = {}",resultRoles);
 		} catch (Exception e) {
 			e.printStackTrace();

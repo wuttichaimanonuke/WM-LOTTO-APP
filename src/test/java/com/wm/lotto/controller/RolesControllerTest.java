@@ -2,6 +2,9 @@ package com.wm.lotto.controller;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,13 +16,13 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import com.google.gson.Gson;
-
 import com.wm.lotto.entity.general.RequestDataEntity;
+import com.wm.lotto.entity.users.Users;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
-public class TokenLoginControllerTest {
+public class RolesControllerTest {
 
 	@Autowired
     private MockMvc mockMvc;
@@ -29,48 +32,29 @@ public class TokenLoginControllerTest {
 	}
 	
 	@Test
-	public void checkThisTokenIsFoundTest() throws Exception {
+	public void getAllRolesIsActiveByUidTest() throws Exception {
 		/***********************
 		 * Integration Testing
 		 ************************/
 		// prepare data and mock's behaviour
-		RequestDataEntity<String> seriesValue = new RequestDataEntity<String>();
+		List<Users> mockListLoginUser = new ArrayList<Users>();
+		Users mockLoginUsers = new Users();
+		mockLoginUsers.setuId("U05");
+		mockListLoginUser.add(mockLoginUsers);
+		RequestDataEntity<Users> seriesValue = new RequestDataEntity<Users>();
 		seriesValue.setToken("7a4b758e-cc2e-4ff4-9e52-7ba07520c168");
-		seriesValue.setDataValue(null);
+		seriesValue.setDataValue(mockListLoginUser);
 		Gson gson = new Gson();
 		String jsonBodyContent = gson.toJson(seriesValue);
 		
 		// execute
 		this.mockMvc.perform(
-				MockMvcRequestBuilders.post("/tokenlogin/checkThisToken")
+				MockMvcRequestBuilders.post("/roles/getAllRolesIsActiveByUserId")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(jsonBodyContent)
 				)
-				.andDo(print())
-				.andExpect(MockMvcResultMatchers.status().isFound())
-				.andExpect(MockMvcResultMatchers.jsonPath("$.result").value(true));
-	}
-	
-	@Test
-	public void checkThisTokenIsNotFoundTest() throws Exception {
-		/***********************
-		 * Integration Testing
-		 ************************/
-		// prepare data and mock's behaviour
-		RequestDataEntity<String> seriesValue = new RequestDataEntity<String>();
-		seriesValue.setToken("7a4b758e-cc2e-4ff4-9e52-7ba07520c169");
-		seriesValue.setDataValue(null);
-		Gson gson = new Gson();
-		String jsonBodyContent = gson.toJson(seriesValue);
-		
-		// execute
-		this.mockMvc.perform(
-				MockMvcRequestBuilders.post("/tokenlogin/checkThisToken")
-				.contentType(MediaType.APPLICATION_JSON)
-				.content(jsonBodyContent)
-				)
-				.andDo(print())
-				.andExpect(MockMvcResultMatchers.status().isNotFound())
-				.andExpect(MockMvcResultMatchers.jsonPath("$.result").value(false));
+				.andExpect(MockMvcResultMatchers.status().isOk())
+				.andExpect(MockMvcResultMatchers.jsonPath("$").isArray())
+				.andDo(print());
 	}
 }

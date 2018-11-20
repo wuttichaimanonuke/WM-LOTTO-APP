@@ -57,6 +57,7 @@ public class UsersDAO implements IUsersDAO {
 			log.debug("Get UserId({}) By username({}).",resultQuery.getuId() ,user.getuUsername());
 			log.info("(SUCCESS) Method checkUserLogin access database success.");
 		} catch (Exception e) {
+			userId = null;
 			log.error("(ERROR) Method checkUserLogin RowMapper or JDBCTemplate error. : "+e);
 		}
 		if (resultQuery != null) {
