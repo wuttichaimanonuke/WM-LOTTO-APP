@@ -19,10 +19,7 @@ public class TestCallController {
 
 	private static final Logger log = LoggerFactory.getLogger(TestCallController.class);
 	
-//	private static final String CORSHOST = "http://localhost:3000";
-	
-//	@CrossOrigin(origins = CORSHOST)
-	@RequestMapping(value = "/testPost01", method = RequestMethod.POST)
+	@RequestMapping(value = "/testPost01", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> testPost01() {
 		log.info("(POST) mapping to checkThisToken : Begin.");
 		log.info("@RequestBody : not request.");
@@ -32,7 +29,6 @@ public class TestCallController {
 		Map<String, Object> result = new HashMap<String, Object>();
 		result.put("result", "jsonResponseExample");
 		log.info("result : {}",result.get("result"));
-//		return new ResponseEntity<String>("{\"result\": \"jsonResponseExample\"}", responseHeaders, HttpStatus.OK);
 		return new ResponseEntity<Map<String,Object>>(result, responseHeaders, HttpStatus.OK);
 	}
 }
