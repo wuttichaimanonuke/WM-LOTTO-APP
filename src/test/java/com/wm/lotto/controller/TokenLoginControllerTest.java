@@ -42,7 +42,7 @@ public class TokenLoginControllerTest {
 		
 		// execute
 		this.mockMvc.perform(
-				MockMvcRequestBuilders.post("/tokenlogin/chekThisToken")
+				MockMvcRequestBuilders.post("/tokenlogin/checkThisToken")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(jsonBodyContent)
 				)
@@ -65,7 +65,7 @@ public class TokenLoginControllerTest {
 		
 		// execute
 		this.mockMvc.perform(
-				MockMvcRequestBuilders.post("/tokenlogin/chekThisToken")
+				MockMvcRequestBuilders.post("/tokenlogin/checkThisToken")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(jsonBodyContent)
 				)
