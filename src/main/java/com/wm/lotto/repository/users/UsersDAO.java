@@ -40,6 +40,7 @@ public class UsersDAO implements IUsersDAO {
 			result = jdbcTemplate.query(sql, rowMapper);
 			log.info("(SUCCESS) Method getAllUserss access database success.");
 		} catch (Exception e) {
+			log.debug("--result.isEmpty() = {}--",result.isEmpty());
 			log.error("(ERROR) Method getAllUserss RowMapper or JDBCTemplate error. : "+e);
 			throw new Exception();
 		}
