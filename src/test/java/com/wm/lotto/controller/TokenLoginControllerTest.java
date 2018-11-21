@@ -42,12 +42,12 @@ public class TokenLoginControllerTest {
 		
 		// execute
 		this.mockMvc.perform(
-				MockMvcRequestBuilders.post("/tokenlogin/chekThisToken")
+				MockMvcRequestBuilders.post("/tokenlogin/checkThisToken")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(jsonBodyContent)
 				)
 				.andDo(print())
-				.andExpect(MockMvcResultMatchers.status().isOk())
+				.andExpect(MockMvcResultMatchers.status().isFound())
 				.andExpect(MockMvcResultMatchers.jsonPath("$.result").value(true));
 	}
 	
@@ -65,12 +65,12 @@ public class TokenLoginControllerTest {
 		
 		// execute
 		this.mockMvc.perform(
-				MockMvcRequestBuilders.post("/tokenlogin/chekThisToken")
+				MockMvcRequestBuilders.post("/tokenlogin/checkThisToken")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(jsonBodyContent)
 				)
 				.andDo(print())
-				.andExpect(MockMvcResultMatchers.status().isOk())
+				.andExpect(MockMvcResultMatchers.status().isNotFound())
 				.andExpect(MockMvcResultMatchers.jsonPath("$.result").value(false));
 	}
 }

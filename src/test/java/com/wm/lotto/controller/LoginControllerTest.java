@@ -56,7 +56,7 @@ public class LoginControllerTest {
 				.content(jsonBodyContent)
 				)
 				.andDo(print())
-				.andExpect(MockMvcResultMatchers.status().isOk())
+				.andExpect(MockMvcResultMatchers.status().isFound())
 				.andExpect(MockMvcResultMatchers.jsonPath("$.token").isString());
 	}
 	
@@ -84,7 +84,7 @@ public class LoginControllerTest {
 				.content(jsonBodyContent)
 				)
 				.andDo(print())
-				.andExpect(MockMvcResultMatchers.status().isOk())
+				.andExpect(MockMvcResultMatchers.status().isNotFound())
 				.andExpect(MockMvcResultMatchers.jsonPath("$.token").isEmpty());
 	}
 }
