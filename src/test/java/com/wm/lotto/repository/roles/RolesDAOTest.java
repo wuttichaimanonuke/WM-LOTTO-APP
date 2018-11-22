@@ -12,8 +12,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.wm.lotto.entity.roles.Roles;
-import com.wm.lotto.entity.users.Users;
-import com.wm.lotto.repository.users.UsersDAO;
 
 public class RolesDAOTest {
 	/*########################

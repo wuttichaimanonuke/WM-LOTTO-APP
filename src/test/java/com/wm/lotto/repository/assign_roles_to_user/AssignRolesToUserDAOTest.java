@@ -13,11 +13,11 @@ import org.slf4j.LoggerFactory;
 
 import com.wm.lotto.entity.assign_roles_to_user.AssignRolesToUser;
 
-public class AssignRolesToUserTest {
+public class AssignRolesToUserDAOTest {
 	/*########################
 	######## Unit Test #######
 	##########################*/
-	private static final Logger log = LoggerFactory.getLogger(AssignRolesToUserTest.class);
+	private static final Logger log = LoggerFactory.getLogger(AssignRolesToUserDAOTest.class);
 	
 	@Test
 	public void getAllAssignRolesToUsersFoundTest() throws Exception {
