@@ -33,4 +33,17 @@ public class TokenService implements ITokenService {
 		return false;
 	}
 
+	@Override
+	public boolean checkThisTokenByTkUid(String token, String uId) {
+		if ( !(token == null) && !(token.trim().equals("")) && !(uId == null) && !(uId.trim().equals("")) ) {
+			try {
+				return tokenLoginDAO.checkExistThisTokenAndUid(token,uId);
+			} catch (Exception e) {
+				Log.info("This token {} and uId {} has't live in system. Error exception : "+e.getMessage(), token, uId);
+				return false;
+			}
+		}
+		return false;
+	}
+
 }

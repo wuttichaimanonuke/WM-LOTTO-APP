@@ -70,6 +70,7 @@ public class LoginService implements ILoginService {
 					tokenLoginDAO.insertTokenLogin(tokenLogin);
 					log.info("User ("+userId+") login success.");
 					resultUuidToken.setTlToken(tokenLogin.getTlToken());
+					resultUuidToken.setUId(userId);
 					log.info("Token = "+tokenLogin.getTlToken());
 				} catch (Exception e) {
 					log.info("User ("+userId+") login fail. : "+e.getMessage());
@@ -77,6 +78,61 @@ public class LoginService implements ILoginService {
 			}
 		}
 		return resultUuidToken;
+	}
+
+	@Override
+	public TokenLogin loginWithFunc(String username, String password) {
+		log.info("(SERVICE) Service loginWithFunc begin.");
+		TokenLogin resultLogin = new TokenLogin();
+		String resultTokenLoginDAO;
+		if (	!(username.trim().isEmpty())	&& 	!(username.equals(null))
+				&&	!(password.trim().isEmpty())	&&	!(password.equals(null))
+			) {
+			UUID uuidToken = UUID.randomUUID();
+			try {
+				resultTokenLoginDAO = tokenLoginDAO.loginWithFunc(username, password, uuidToken.toString());
+				if (
+						!(resultTokenLoginDAO.equals(null))	&&
+						!(resultTokenLoginDAO.equals("INPUT INVALID"))	&&
+						!(resultTokenLoginDAO.equals("USER NOT FOUND"))
+				) {
+					try {
+						resultLogin = tokenLoginDAO.getTokenLoginByToken(resultTokenLoginDAO);
+						if (resultLogin.equals(null)) {
+							resultLogin.setTlToken("EXCEPTION OTHER");
+						}
+					} catch (Exception e) {
+						log.info("Get Token Login fail. : "+e.getMessage());
+						resultLogin.setTlToken("EXCEPTION OTHER");
+					}
+				} else if (resultTokenLoginDAO.equals(null)) {
+					resultLogin.setTlToken("EXCEPTION OTHER");
+				} else {
+					resultLogin.setTlToken(resultTokenLoginDAO);
+				}
+			} catch (Exception e) {
+				log.info("Login fail. : "+e.getMessage());
+				resultLogin.setTlToken("EXCEPTION OTHER");
+			}
+		} else {
+			resultLogin.setTlToken("INPUT INVALID");
+		}
+		return resultLogin;
+	}
+
+	@Override
+	public String logoutWithProc(String uuidtoken) {
+		log.info("(SERVICE) Service logoutWithProc begin.");
+		String resultLogout = "NOT FOUND";
+		if (	!(uuidtoken.trim().isEmpty())	&& 	!(uuidtoken.equals(null)) ) {
+			try {
+				resultLogout = tokenLoginDAO.logoutWithProc(uuidtoken);
+				log.info("resultLogout = {}",resultLogout);
+			} catch (Exception e) {
+				log.info("Logout fail. : "+e.getMessage());
+			}
+		}
+		return resultLogout;
 	}
 
 }

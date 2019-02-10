@@ -27,9 +27,12 @@ public class Application {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
 				registry.addMapping("/tokenlogin/checkThisToken").allowedOrigins(corsHost);
+				registry.addMapping("/tokenlogin/checkThisTokenByTkUid").allowedOrigins(corsHost);
 				registry.addMapping("/tokenlogin/testPost01").allowedOrigins(corsHost);//Test
 				
 				registry.addMapping("/login_app/login").allowedOrigins(corsHost);
+				registry.addMapping("/login_app/login_func").allowedOrigins(corsHost);
+				registry.addMapping("/login_app/logout_proc").allowedOrigins(corsHost);
 				
 				registry.addMapping("/roles/getAllRolesIsActiveByUserId").allowedOrigins(corsHost);
 

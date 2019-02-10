@@ -23,7 +23,7 @@ import com.wm.lotto.entity.general.RequestDataEntity;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
-public class LoginControllerTest {
+public class LogoutControllerTest {
 
 	@Autowired
     private MockMvc mockMvc;
@@ -60,66 +60,8 @@ public class LoginControllerTest {
 	private static final String LOGOUT_FAILED_CODE = "LOGO204";
 	private static final String LOGOUT_FAILED_MSG = "Logout failed.";
 	
-//	@Test
-//	public void loginAppIsSuccessTest() throws Exception {
-//		/***********************
-//		 * Integration Testing
-//		 ************************/
-//		// prepare data and mock's behaviour
-//		List<LoginUser> mockListLoginUser = new ArrayList<LoginUser>();
-//		LoginUser mockLoginUsers = new LoginUser();
-//		mockLoginUsers.setUsername("USERNAME01");
-//		mockLoginUsers.setPassword("123");
-//		mockListLoginUser.add(mockLoginUsers);
-//		RequestDataEntity<LoginUser> seriesValue = new RequestDataEntity<LoginUser>();
-//		seriesValue.setToken(null);
-//		seriesValue.setDataValue(mockListLoginUser);
-//		Gson gson = new Gson();
-//		String jsonBodyContent = gson.toJson(seriesValue);
-//		
-//		// execute
-//		this.mockMvc.perform(
-//				MockMvcRequestBuilders.post("/login_app/login")
-//				.contentType(MediaType.APPLICATION_JSON)
-//				.content(jsonBodyContent)
-//				)
-//				.andDo(print())
-//				.andExpect(MockMvcResultMatchers.status().isFound())
-//				.andExpect(MockMvcResultMatchers.jsonPath("$.token").isString())
-//				.andExpect(MockMvcResultMatchers.jsonPath("$.uId").isString());
-//	}
-	
-//	@Test
-//	public void loginAppIsFailTest() throws Exception {
-//		/***********************
-//		 * Integration Testing
-//		 ************************/
-//		// prepare data and mock's behaviour
-//		List<LoginUser> mockListLoginUser = new ArrayList<LoginUser>();
-//		LoginUser mockLoginUsers = new LoginUser();
-//		mockLoginUsers.setUsername("BAD-USERNAME");
-//		mockLoginUsers.setPassword("123");
-//		mockListLoginUser.add(mockLoginUsers);
-//		RequestDataEntity<LoginUser> seriesValue = new RequestDataEntity<LoginUser>();
-//		seriesValue.setToken(null);
-//		seriesValue.setDataValue(mockListLoginUser);
-//		Gson gson = new Gson();
-//		String jsonBodyContent = gson.toJson(seriesValue);
-//		
-//		// execute
-//		this.mockMvc.perform(
-//				MockMvcRequestBuilders.post("/login_app/login")
-//				.contentType(MediaType.APPLICATION_JSON)
-//				.content(jsonBodyContent)
-//				)
-//				.andDo(print())
-//				.andExpect(MockMvcResultMatchers.status().isNotFound())
-//				.andExpect(MockMvcResultMatchers.jsonPath("$.token").isEmpty())
-//				.andExpect(MockMvcResultMatchers.jsonPath("$.uId").isEmpty());
-//	}
-	
 	@Test
-	public void loginAppWithFuncIsSuccessTest() throws Exception {
+	public void logoutAppWithProcIsSuccessTest() throws Exception {
 		/***********************
 		 * Integration Testing
 		 ************************/
@@ -127,16 +69,66 @@ public class LoginControllerTest {
 		
 		// execute
 		this.mockMvc.perform(
-				MockMvcRequestBuilders.post("/login_app/login_func")
+				MockMvcRequestBuilders.post("/login_app/logout_proc")
 				.contentType(MediaType.APPLICATION_JSON)
-				.header("username", username_true)
-				.header("password", password_true)
+				.header("token", uuidToken_true)
 				)
 				.andDo(print())
 				.andExpect(MockMvcResultMatchers.status().isOk())
-				.andExpect(MockMvcResultMatchers.jsonPath("$.resultCode").value(LOGIN_SUCCESS_CODE))
-				.andExpect(MockMvcResultMatchers.jsonPath("$.token").isString())
-				.andExpect(MockMvcResultMatchers.jsonPath("$.uId").value(uId));
+				.andExpect(MockMvcResultMatchers.jsonPath("$.resultCode").value(LOGOUT_SUCCESS_CODE));
 	}
 	
+	@Test
+	public void logoutAppWithProcTokenFalseIsFalseTest() throws Exception {
+		/***********************
+		 * Integration Testing
+		 ************************/
+		// prepare data and mock's behaviour
+		
+		// execute
+		this.mockMvc.perform(
+				MockMvcRequestBuilders.post("/login_app/logout_proc")
+				.contentType(MediaType.APPLICATION_JSON)
+				.header("token", uuidToken_false)
+				)
+				.andDo(print())
+				.andExpect(MockMvcResultMatchers.status().isOk())
+				.andExpect(MockMvcResultMatchers.jsonPath("$.resultCode").value(LOGOUT_FAILED_CODE));
+	}
+	
+	@Test
+	public void logoutAppWithProcTokenEmptyIsFalseTest() throws Exception {
+		/***********************
+		 * Integration Testing
+		 ************************/
+		// prepare data and mock's behaviour
+		
+		// execute
+		this.mockMvc.perform(
+				MockMvcRequestBuilders.post("/login_app/logout_proc")
+				.contentType(MediaType.APPLICATION_JSON)
+				.header("token", uuidToken_empty)
+				)
+				.andDo(print())
+				.andExpect(MockMvcResultMatchers.status().isOk())
+				.andExpect(MockMvcResultMatchers.jsonPath("$.resultCode").value(LOGOUT_FAILED_CODE));
+	}
+	
+	@Test
+	public void logoutAppWithProcTokenSpaceIsFalseTest() throws Exception {
+		/***********************
+		 * Integration Testing
+		 ************************/
+		// prepare data and mock's behaviour
+		
+		// execute
+		this.mockMvc.perform(
+				MockMvcRequestBuilders.post("/login_app/logout_proc")
+				.contentType(MediaType.APPLICATION_JSON)
+				.header("token", uuidToken_space)
+				)
+				.andDo(print())
+				.andExpect(MockMvcResultMatchers.status().isOk())
+				.andExpect(MockMvcResultMatchers.jsonPath("$.resultCode").value(LOGOUT_FAILED_CODE));
+	}
 }
