@@ -19,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.wm.lotto.entity.token_login.TokenLogin;
 import com.wm.lotto.entity.token_login.TokenLoginRowMapper;
+import com.wm.lotto.general.ConstantsResultDAO;
 
 @Transactional
 @Repository
@@ -143,20 +144,20 @@ public class TokenLoginDAO implements ITokenLoginDAO {
 				Map<String, Object> resultFromFunc = jdbcCall.execute(parameter_in);
 				result = resultFromFunc.get("return").toString();
 				if ( (result.equals("NULL")) || (result.trim().isEmpty()) || (result.equals(null)) ) {
-					result = "EXCEPTION OTHER";
+					result = ConstantsResultDAO.result_Login_with_func_Other;//"EXCEPTION OTHER";
 				}
 			} catch (Exception e) {
-				result = "EXCEPTION OTHER";
+				result = ConstantsResultDAO.result_Login_with_func_Other;//"EXCEPTION OTHER";
 			}
 		} else {
-			result = "INPUT INVALID";
+			result = ConstantsResultDAO.result_Login_with_func_Input_Invalid;//"INPUT INVALID";
 		}
 		return result;
 	}
 
 	@Override
 	public String logoutWithProc(String uuidToken) {
-		String result = "NOT FOUND";
+		String result = ConstantsResultDAO.result_logout_with_proc_NotFound;//"NOT FOUND";
 		log.info("DAO token = {}",uuidToken);
 		if (	!(uuidToken.trim().isEmpty()) && !(uuidToken.equals(null)) ) {
 			try {
@@ -165,14 +166,38 @@ public class TokenLoginDAO implements ITokenLoginDAO {
 				SqlParameterSource parameter_in = new MapSqlParameterSource()
 														.addValue("token_in", uuidToken);
 				Map<String, Object> resultFromProc = jdbcCall.execute(parameter_in);
-				result = (String) resultFromProc.get("RESULT_OUT");
+				result = (String) resultFromProc.get("RESULT_OUT");//"OK"
 				log.info("result = {}",result);
 			} catch (Exception e) {
 				log.info("Error : "+e);
-				result = "NOT FOUND";
+				result = ConstantsResultDAO.result_logout_with_proc_NotFound;//"NOT FOUND";
 			}
 		} else {
-			result = "NOT FOUND";
+			result = ConstantsResultDAO.result_logout_with_proc_NotFound;//"NOT FOUND";
+		}
+		return result;
+	}
+
+	@Override
+	public String checkTokenIsExpire(String uuidToken) {
+		String sql = "SELECT COUNT(1) FROM "+ANALYZERLOTTERY+"TOKENLOGIN WHERE TL_TOKEN = ? AND EXPIRY_DATE >= SYSDATE";
+		String result = ConstantsResultDAO.result_checkTokenIsExpir_Fail;
+		if ( !(uuidToken == null) && !(uuidToken.trim().equals("")) ) {
+			Integer resultQuery = 0;
+			try {
+				log.info("Method checkTokenExpire check parametor token({})).", uuidToken);
+				resultQuery = jdbcTemplate.queryForObject(sql, new Object[] { uuidToken }, Integer.class);
+				log.info("(SUCCESS) Method checkTokenExpire access database success.");
+				if ( resultQuery == 1 ) {
+					log.info("Token({}) has keep in system.", uuidToken);
+					result = ConstantsResultDAO.result_checkTokenIsExpir_Ok;
+				} else {
+					result = ConstantsResultDAO.result_checkTokenIsExpir_Fail;
+				}
+			} catch (Exception e) {
+				log.info("(ERROR) Method checkTokenExpire RowMapper or JDBCTemplate error. : "+e);
+				result = ConstantsResultDAO.result_checkTokenIsExpir_Fail;
+			}
 		}
 		return result;
 	}

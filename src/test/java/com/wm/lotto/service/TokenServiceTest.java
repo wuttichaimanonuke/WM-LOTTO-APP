@@ -35,6 +35,11 @@ public class TokenServiceTest {
 		setupTokenService();
     }
 	
+	private static final String uuidToken_true = "e365af88-fbee-4976-9477-60bfc9b16aeb";
+	private static final String uuidToken_false = "aaaaaaaaaaaaaaaaaaaaa";
+	private static final String result_checkTokenIsExpir_Ok = "OK";
+	private static final String result_checkTokenIsExpir_Fail = "FAIL";
+	
 	private void setupTokenService() {
 		mockTokenService = mock(TokenService.class);
 		when(mockTokenService.checkThisTokenByTkUid("7a4b758e-cc2e-4ff4-9e52-7ba07520c168", "U01"))

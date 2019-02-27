@@ -23,4 +23,5 @@ public interface ITokenLoginDAO {
 	
 	String logoutWithProc(String uuidToken);
 
+	String checkTokenIsExpire(String uuidToken);
 }

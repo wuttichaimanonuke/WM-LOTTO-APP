@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.wm.lotto.entity.general.LoginUser;
 import com.wm.lotto.entity.general.RequestDataEntity;
 import com.wm.lotto.entity.token_login.TokenLogin;
+import com.wm.lotto.general.ConstantsResult;
 import com.wm.lotto.service.login.ILoginService;
 
 @RestController
@@ -25,7 +26,7 @@ import com.wm.lotto.service.login.ILoginService;
 public class LoginController {
 
 	private static final Logger log = LoggerFactory.getLogger(LoginController.class);
-	
+	/*
 	private static final String LOGIN_SUCCESS_CODE = "LOGI200";
 	private static final String LOGIN_SUCCESS_MSG = "Login success.";
 	private static final String LOGIN_FAILED_CODE = "LOGI204";
@@ -39,6 +40,7 @@ public class LoginController {
 	private static final String LOGOUT_SUCCESS_MSG = "Logout success.";
 	private static final String LOGOUT_FAILED_CODE = "LOGO204";
 	private static final String LOGOUT_FAILED_MSG = "Logout failed.";
+	*/
 	
 	@Autowired
 	private ILoginService loginService;
@@ -56,32 +58,33 @@ public class LoginController {
 				tokenLogin = loginService.loginWithFunc(username, password);
 				switch (tokenLogin.getTlToken()) {
 				case "INPUT INVALID":
-					result.put("resultCode", LOGIN_INPUT_INVALID_CODE);
-					result.put("resultMessage", LOGIN_INPUT_INVALID_MSG);
+					result.put("resultCode", ConstantsResult.LOGIN_INPUT_INVALID_CODE);
+//					result.put("resultCode", LOGIN_INPUT_INVALID_CODE);
+					result.put("resultMessage", ConstantsResult.LOGIN_INPUT_INVALID_MSG);
 					break;
 				case "USER NOT FOUND":
-					result.put("resultCode", LOGIN_NOT_FOUND_CODE);
-					result.put("resultMessage", LOGIN_NOT_FOUND_MSG);
+					result.put("resultCode", ConstantsResult.LOGIN_NOT_FOUND_CODE);
+					result.put("resultMessage", ConstantsResult.LOGIN_NOT_FOUND_MSG);
 					break;
 				case "EXCEPTION OTHER":
-					result.put("resultCode", LOGIN_FAILED_CODE);
-					result.put("resultMessage", LOGIN_FAILED_MSG);
+					result.put("resultCode", ConstantsResult.LOGIN_FAILED_CODE);
+					result.put("resultMessage", ConstantsResult.LOGIN_FAILED_MSG);
 					break;
 				default:
-					result.put("resultCode", LOGIN_SUCCESS_CODE);
-					result.put("resultMessage", LOGIN_SUCCESS_MSG);
+					result.put("resultCode", ConstantsResult.LOGIN_SUCCESS_CODE);
+					result.put("resultMessage", ConstantsResult.LOGIN_SUCCESS_MSG);
 					result.put("token", tokenLogin.getTlToken());
 					result.put("uId", tokenLogin.getUId());
 					break;
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
-				result.put("resultCode", LOGIN_FAILED_CODE);
-				result.put("resultMessage", LOGIN_FAILED_MSG);
+				result.put("resultCode", ConstantsResult.LOGIN_FAILED_CODE);
+				result.put("resultMessage", ConstantsResult.LOGIN_FAILED_MSG);
 			}
 		} else {
-			result.put("resultCode", LOGIN_INPUT_INVALID_CODE);
-			result.put("resultMessage", LOGIN_INPUT_INVALID_MSG);
+			result.put("resultCode", ConstantsResult.LOGIN_INPUT_INVALID_CODE);
+			result.put("resultMessage", ConstantsResult.LOGIN_INPUT_INVALID_MSG);
 		}
 		log.info("Service return value = {},",result);
 		return new ResponseEntity<Map<String,Object>>(result, HttpStatus.OK);
@@ -123,26 +126,26 @@ public class LoginController {
 				result_service = loginService.logoutWithProc(token);
 				switch (result_service) {
 				case "OK":
-					result.put("resultCode", LOGOUT_SUCCESS_CODE);
-					result.put("resultMessage", LOGOUT_SUCCESS_MSG);
+					result.put("resultCode", ConstantsResult.LOGOUT_SUCCESS_CODE);
+					result.put("resultMessage", ConstantsResult.LOGOUT_SUCCESS_MSG);
 					break;
 				case "NOT FOUND":
-					result.put("resultCode", LOGOUT_FAILED_CODE);
-					result.put("resultMessage", LOGOUT_FAILED_MSG);
+					result.put("resultCode", ConstantsResult.LOGOUT_FAILED_CODE);
+					result.put("resultMessage", ConstantsResult.LOGOUT_FAILED_MSG);
 					break;
 				default:
-					result.put("resultCode", LOGOUT_FAILED_CODE);
-					result.put("resultMessage", LOGOUT_FAILED_MSG);
+					result.put("resultCode", ConstantsResult.LOGOUT_FAILED_CODE);
+					result.put("resultMessage", ConstantsResult.LOGOUT_FAILED_MSG);
 					break;
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
-				result.put("resultCode", LOGOUT_FAILED_CODE);
-				result.put("resultMessage", LOGOUT_FAILED_MSG);
+				result.put("resultCode", ConstantsResult.LOGOUT_FAILED_CODE);
+				result.put("resultMessage", ConstantsResult.LOGOUT_FAILED_MSG);
 			}
 		} else {
-			result.put("resultCode", LOGOUT_FAILED_CODE);
-			result.put("resultMessage", LOGOUT_FAILED_MSG);
+			result.put("resultCode", ConstantsResult.LOGOUT_FAILED_CODE);
+			result.put("resultMessage", ConstantsResult.LOGOUT_FAILED_MSG);
 		}
 		log.info("Service return value = {},",result);
 		return new ResponseEntity<Map<String,Object>>(result, HttpStatus.OK);

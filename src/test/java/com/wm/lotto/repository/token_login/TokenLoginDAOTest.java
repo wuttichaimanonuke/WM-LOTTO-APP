@@ -12,6 +12,8 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.wm.lotto.general.ConstantsResultDAO;
+
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -48,9 +50,6 @@ public class TokenLoginDAOTest {
 	private static final String result_Input_Invalid = "INPUT INVALID";
 	private static final String result_Not_Found = "USER NOT FOUND";
 	
-	private static final String result_logout_with_proc_Found = "OK";
-	private static final String result_logout_with_proc_NotFound = "NOT FOUND";
-	
 	private void setupTokenLoginDAO() {
 		mockTokenLoginDAO = mock(TokenLoginDAO.class);
 		when(mockTokenLoginDAO.checkExistThisTokenAndUid("7a4b758e-cc2e-4ff4-9e52-7ba07520c168", "U01"))
@@ -74,7 +73,12 @@ public class TokenLoginDAOTest {
 		when(mockTokenLoginDAO.logoutWithProc(uuidToken_empty))
 			.thenReturn("NOT FOUND");
 		when(mockTokenLoginDAO.logoutWithProc(uuidToken_space))
-		.thenReturn("NOT FOUND");
+			.thenReturn("NOT FOUND");
+		
+		when(mockTokenLoginDAO.checkTokenIsExpire(uuidToken_true))
+			.thenReturn(ConstantsResultDAO.result_checkTokenIsExpir_Ok);
+		when(mockTokenLoginDAO.checkTokenIsExpire(uuidToken_false))
+			.thenReturn(ConstantsResultDAO.result_checkTokenIsExpir_Fail);
 	}
 
 	@Test
@@ -178,7 +182,7 @@ public class TokenLoginDAOTest {
 		// prepare data and mock's behaviour
 		// execute
 		String result = mockTokenLoginDAO.loginWithFunc(username_null, password_empty, uuidToken_space);
-		assertEquals(result_Input_Invalid, result);
+		assertEquals(ConstantsResultDAO.result_Login_with_func_Input_Invalid, result);
 	}
 	
 	@Test
@@ -189,7 +193,7 @@ public class TokenLoginDAOTest {
 		// prepare data and mock's behaviour
 		// execute
 		String result = mockTokenLoginDAO.loginWithFunc(username_false, password_false, uuidToken_true);
-		assertEquals(result_Not_Found, result);
+		assertEquals(ConstantsResultDAO.result_Login_with_func_Not_Found, result);
 	}
 	
 	@Test
@@ -200,7 +204,7 @@ public class TokenLoginDAOTest {
 		// prepare data and mock's behaviour
 		// execute
 		String result = mockTokenLoginDAO.logoutWithProc(uuidToken_true);
-		assertEquals(result_logout_with_proc_Found, result);
+		assertEquals(ConstantsResultDAO.result_logout_with_proc_Found, result);
 	}
 	
 	@Test
@@ -211,7 +215,7 @@ public class TokenLoginDAOTest {
 		// prepare data and mock's behaviour
 		// execute
 		String result = mockTokenLoginDAO.logoutWithProc(uuidToken_false);
-		assertEquals(result_logout_with_proc_NotFound, result);
+		assertEquals(ConstantsResultDAO.result_logout_with_proc_NotFound, result);
 	}
 	
 	@Test
@@ -222,7 +226,7 @@ public class TokenLoginDAOTest {
 		// prepare data and mock's behaviour
 		// execute
 		String result = mockTokenLoginDAO.logoutWithProc(uuidToken_null);
-		assertEquals(result_logout_with_proc_NotFound, result);
+		assertEquals(ConstantsResultDAO.result_logout_with_proc_NotFound, result);
 	}
 	
 	@Test
@@ -233,7 +237,7 @@ public class TokenLoginDAOTest {
 		// prepare data and mock's behaviour
 		// execute
 		String result = mockTokenLoginDAO.logoutWithProc(uuidToken_empty);
-		assertEquals(result_logout_with_proc_NotFound, result);
+		assertEquals(ConstantsResultDAO.result_logout_with_proc_NotFound, result);
 	}
 	
 	@Test
@@ -244,6 +248,28 @@ public class TokenLoginDAOTest {
 		// prepare data and mock's behaviour
 		// execute
 		String result = mockTokenLoginDAO.logoutWithProc(uuidToken_space);
-		assertEquals(result_logout_with_proc_NotFound, result);
+		assertEquals(ConstantsResultDAO.result_logout_with_proc_NotFound, result);
+	}
+	
+	@Test
+	public void checkTokenIsExpireOk() throws Exception {
+		/***********************
+		 * Unit Testing
+		 ************************/
+		// prepare data and mock's behaviour
+		// execute
+		String result = mockTokenLoginDAO.checkTokenIsExpire(uuidToken_true);
+		assertEquals(ConstantsResultDAO.result_checkTokenIsExpir_Ok, result);
+	}
+	
+	@Test
+	public void checkTokenIsExpireFail() throws Exception {
+		/***********************
+		 * Unit Testing
+		 ************************/
+		// prepare data and mock's behaviour
+		// execute
+		String result = mockTokenLoginDAO.checkTokenIsExpire(uuidToken_false);
+		assertEquals(ConstantsResultDAO.result_checkTokenIsExpir_Fail, result);
 	}
 }

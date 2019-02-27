@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.wm.lotto.entity.token_login.TokenLogin;
+import com.wm.lotto.general.ConstantsResultDAO;
 import com.wm.lotto.repository.token_login.ITokenLoginDAO;
 
 @Service
@@ -44,6 +45,20 @@ public class TokenService implements ITokenService {
 			}
 		}
 		return false;
+	}
+
+	@Override
+	public String checkTokenIsExpire(String token) {
+		String result = ConstantsResultDAO.result_checkTokenIsExpir_Fail;
+		if ( !(token.equals(null)) && !(token.trim().equals("")) ) {
+			try {
+				result = tokenLoginDAO.checkTokenIsExpire(token);
+				Log.info("Check this token[{}] result is [{}].", token, result);
+			} catch (Exception e) {
+				Log.info("Can't check or not found this token[{}].",token);
+			}
+		}
+		return result;
 	}
 
 }

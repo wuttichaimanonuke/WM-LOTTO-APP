@@ -26,6 +26,7 @@ public class Application {
 		return new WebMvcConfigurerAdapter() {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
+				registry.addMapping("/tokenlogin/checkTokenIsExpire").allowedOrigins(corsHost);
 				registry.addMapping("/tokenlogin/checkThisToken").allowedOrigins(corsHost);
 				registry.addMapping("/tokenlogin/checkThisTokenByTkUid").allowedOrigins(corsHost);
 				registry.addMapping("/tokenlogin/testPost01").allowedOrigins(corsHost);//Test

@@ -11,15 +11,15 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.google.gson.Gson;
-import com.wm.lotto.entity.general.LoginUser;
 import com.wm.lotto.entity.general.RequestDataEntity;
-import com.wm.lotto.entity.general.TestFetchCallApi;
 import com.wm.lotto.entity.users.Users;
+import com.wm.lotto.general.ConstantsResult;
+import com.wm.lotto.general.ConstantsResultDAO;
 import com.wm.lotto.service.token.ITokenService;
 
 @RestController
@@ -30,6 +30,42 @@ public class TokenLoginController {
 	
 	@Autowired
 	private ITokenService tokenService;
+	
+	@RequestMapping(value = "/checkTokenIsExpire", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<?> logoutProcApp(@RequestHeader String appToken) {
+		log.info("(POST) mapping to checkTokenIsExpire : Begin.");
+		log.info("@RequestHeader : appToken = {}", appToken);
+		Map<String, Object> result = new HashMap<String, Object>();
+		String result_service = null;
+		if (	!(appToken.trim().isEmpty())	&& 	!(appToken.equals(null)) ) {
+			try {
+				result_service = tokenService.checkTokenIsExpire(appToken);
+				switch (result_service) {
+				case ConstantsResultDAO.result_checkTokenIsExpir_Ok:
+					result.put("resultCode", ConstantsResult.CHECK_TOKEN_IS_EXPIRE_OK_CODE);
+					result.put("resultMessage", ConstantsResult.CHECK_TOKEN_IS_EXPIRE_OK__MSG);
+					break;
+				case ConstantsResultDAO.result_checkTokenIsExpir_Fail:
+					result.put("resultCode", ConstantsResult.CHECK_TOKEN_IS_EXPIRE_FAIL_CODE);
+					result.put("resultMessage", ConstantsResult.CHECK_TOKEN_IS_EXPIRE_FAIL_MSG);
+					break;
+				default:
+					result.put("resultCode", ConstantsResult.CHECK_TOKEN_IS_EXPIRE_FAIL_CODE);
+					result.put("resultMessage", ConstantsResult.CHECK_TOKEN_IS_EXPIRE_FAIL_MSG);
+					break;
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+				result.put("resultCode", ConstantsResult.CHECK_TOKEN_IS_EXPIRE_FAIL_CODE);
+				result.put("resultMessage", ConstantsResult.CHECK_TOKEN_IS_EXPIRE_FAIL_MSG);
+			}
+		} else {
+			result.put("resultCode", ConstantsResult.CHECK_TOKEN_IS_EXPIRE_FAIL_CODE);
+			result.put("resultMessage", ConstantsResult.CHECK_TOKEN_IS_EXPIRE_FAIL_MSG);
+		}
+		log.info("Service return value = {},",result);
+		return new ResponseEntity<Map<String,Object>>(result, HttpStatus.OK);
+	}
 	
 	@RequestMapping(value = "/checkThisToken", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> checkThisToken(@RequestBody RequestDataEntity<String> seriesValue) {

@@ -1,0 +1,89 @@
+CREATE OR REPLACE PROCEDURE "ANALYZERLOTTERY"."ADD_NEW_ROUND_CONFIGURE" (vYearIn IN NUMBER, vMonthIn IN NUMBER, vRound IN NUMBER, vStatusIn IN VARCHAR2, vCreateUser IN VARCHAR2, vResultCode OUT VARCHAR2)
+AS
+vStatus											VARCHAR2(50);	
+vSelectIsError							BOOLEAN := true;
+vUpdateIsError							BOOLEAN := true;
+vInsertIsError							BOOLEAN := true;
+vCount											NUMBER;
+vRcfId											VARCHAR2(50);
+BEGIN
+	DBMS_OUTPUT.PUT_LINE('ADD_NEW_ROUND_CONFIGURE BEGIN.');
+	--1.0 Check Round Id Exists BEGIN
+	BEGIN
+		vRcfId := TRIM(TO_CHAR(vYearIn,'0000')) || TRIM(TO_CHAR(vMonthIn,'00')) || TRIM(TO_CHAR(vRound,'00'));
+		vSelectIsError := false;
+		SELECT COUNT(1)
+			INTO	vCount
+		FROM ROUND_CONFIGURE RCF
+		WHERE	RCF.RCF_ID = vRcfId;
+		EXCEPTION
+			WHEN OTHERS THEN
+				vSelectIsError := true;
+	END;
+	IF vSelectIsError = true THEN
+		vResultCode := 'RCF499';--UNKNOW ERROR.
+		RETURN;
+	ELSIF vCount != 0 THEN
+		vResultCode := 'RCF300';--RCF_ID DUPPLICATE.
+		RETURN;
+	END IF;
+	--1.0 END
+	--1.1 BEGIN
+	IF vStatusIn = 'ACTIVE' THEN
+		vStatus := vStatusIn;
+		BEGIN
+			vUpdateIsError := false;
+			UPDATE ROUND_CONFIGURE 
+			SET		MODIFYDATE	=	SYSDATE
+					,	MODIFYBY		=	vCreateUser
+					,	R_STATUS		= 'DISABLE'
+			WHERE	R_STATUS = 'ACTIVE';
+			EXCEPTION
+				WHEN	OTHERS THEN
+					vUpdateIsError := true;
+		END;
+		IF vUpdateIsError = true THEN
+			ROLLBACK;
+			vResultCode := 'RCF499';-- Can not Update Data.
+			RETURN;
+		END IF;
+	ELSIF vStatusIn != 'DISABLE' THEN
+		vStatus := 'DISABLE';
+	END IF;
+	--1.1 END
+	--1.2 BEGIN
+	BEGIN
+		vInsertIsError := false;
+		INSERT
+		INTO	ROUND_CONFIGURE	(
+			RCF_ID
+			,	R_YEAR
+			,	R_MONTH
+			,	R_ROUND
+			,	R_STATUS
+			--,	MODIFYDATE
+			--,	MODIFYBY
+			--,	CREACTDATETIME
+			,	CREATEBY
+		) VALUES (
+			vRcfId
+			,	vYearIn
+			,	vMonthIn
+			,	vRound
+			,	vStatus
+			,	vCreateUser
+		);
+		EXCEPTION
+			WHEN OTHERS THEN
+				vInsertIsError := true;
+	END;
+	IF vInsertIsError = true THEN
+		vResultCode := 'RCF401';
+		ROLLBACK;
+	ELSE
+		vResultCode := 'RCF200';
+		COMMIT;
+	END IF;
+	--1.2 END
+	DBMS_OUTPUT.PUT_LINE('ADD_NEW_ROUND_CONFIGURE END.');
+END;
