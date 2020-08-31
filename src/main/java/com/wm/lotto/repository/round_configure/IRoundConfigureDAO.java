@@ -6,5 +6,7 @@ import com.wm.lotto.entity.round_configure.RoundConfigure;
 public interface IRoundConfigureDAO {
 
 	List<RoundConfigure> getAllRoundConfigures() throws Exception;
+	
+	List<RoundConfigure> getCurrentActiveRoundConfigure();
 
 }

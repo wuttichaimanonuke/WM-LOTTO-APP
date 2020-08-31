@@ -16,6 +16,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.wm.lotto.entity.round_configure.RoundConfigure;
 import com.wm.lotto.entity.round_configure.RoundConfigureRowMapper;
+import com.wm.lotto.entity.token_login.TokenLogin;
+import com.wm.lotto.entity.token_login.TokenLoginRowMapper;
 
 @Transactional
 @Repository
@@ -42,6 +44,20 @@ public class RoundConfigureDAO implements IRoundConfigureDAO {
 		} catch (Exception e) {
 			log.error("(ERROR) Method getAllRoundConfigures RowMapper or JDBCTemplate error. : "+e);
 			throw new Exception();
+		}
+		return result;
+	}
+
+	@Override
+	public List<RoundConfigure> getCurrentActiveRoundConfigure() {
+		List<RoundConfigure> result = new ArrayList<RoundConfigure>();
+		String sql = "SELECT * FROM "+ANALYZERLOTTERY+"ROUND_CONFIGURE WHERE R_STATUS = 'ACTIVE'";
+		RowMapper<RoundConfigure> rowMapper = new RoundConfigureRowMapper();
+		try {
+			result = jdbcTemplate.query(sql, rowMapper);
+			log.info("(SUCCESS) Method getCurrentActiveRoundConfigure success.");
+		} catch (Exception e) {
+			log.info("(ERROR) Method getCurrentActiveRoundConfigure RowMapper or JDBCTemplate error. : "+e);
 		}
 		return result;
 	}

@@ -36,6 +36,8 @@ public class Application {
 				registry.addMapping("/login_app/logout_proc").allowedOrigins(corsHost);
 				
 				registry.addMapping("/roles/getAllRolesIsActiveByUserId").allowedOrigins(corsHost);
+				
+				registry.addMapping("/roundConfigure/getCurrentActiveRoundConfigure").allowedOrigins(corsHost);
 
 				registry.addMapping("/testCallApi/testPost01").allowedOrigins(corsHost);//Test
 			}

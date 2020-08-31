@@ -19,4 +19,14 @@ public final class ConstantsResult {
 	public static final String CHECK_TOKEN_IS_EXPIRE_OK__MSG = "This token is ok.";
 	public static final String CHECK_TOKEN_IS_EXPIRE_FAIL_CODE = "CTIE204";
 	public static final String CHECK_TOKEN_IS_EXPIRE_FAIL_MSG = "This token is failed.";
+	
+	/*
+	 * RoundConfigureService
+	 */
+	public static final String GET_CURRENT_ACTIVE_ROUNDCONFIG_OK_CODE = "GCAR200";
+	public static final String GET_CURRENT_ACTIVE_ROUNDCONFIG_OK__MSG = "Ok, Cant get currect active round configuration.";
+	public static final String GET_CURRENT_ACTIVE_ROUNDCONFIG_FAIL_CODE = "GUAR204";
+	public static final String GET_CURRENT_ACTIVE_ROUNDCONFIG_FAIL_MSG = "Failed, Can't get currect active round configuration.";
+	public static final String GET_CURRENT_ACTIVE_ROUNDCONFIG_DATAERROR_CODE = "GUAR209";
+	public static final String GET_CURRENT_ACTIVE_ROUNDCONFIG_DATAERROR_MSG = "Error, Data error.";
 }

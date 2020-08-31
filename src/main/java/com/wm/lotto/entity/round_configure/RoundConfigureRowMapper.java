@@ -17,7 +17,7 @@ public class RoundConfigureRowMapper implements RowMapper<RoundConfigure> {
 		entity.setrStatus(row.getString("R_STATUS"));
 		entity.setModifyDate(row.getDate("MODIFYDATE"));
 		entity.setModifyBy(row.getString("MODIFYBY"));
-		entity.setCreateDatetime(row.getDate("CREATEDATETIME"));
+		entity.setCreateDatetime(row.getDate("CREACTDATETIME"));
 		entity.setCreateBy(row.getString("CREATEBY"));
 		return entity;
 	}
